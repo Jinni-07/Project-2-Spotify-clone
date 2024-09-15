@@ -19,7 +19,7 @@ async function getSongs(folder) {
     let d = document.querySelector(".second").getElementsByTagName("ul")[0]
     d.innerHTML = ''
     for (const s of songs) {
-        let song = s.split(`/songs/${currfolder}/`)[1]
+        let song = s.split(`/songs/${currfolder}`)[1]
         song = song.split('.mp3')[0]
         song = song.replaceAll('_', ' ')
         let html = `<li>
@@ -66,7 +66,7 @@ let currentsong = new Audio();  //Global Scope Variable only one music runs at a
 const playmusic = (music) => {
     // var audio = new Audio(`/songs/${folder}`+music+'.mp3');
     song = music.replaceAll(' ', '_')   //this will not show underscore in songname in player section
-    currentsong.src = (`/songs/${currfolder}/` + song + '.mp3')
+    currentsong.src = (`songs/${currfolder}` + song + '.mp3')
     currentsong.play();
     play.src = "image/pause.svg"
     document.querySelector('.songname').innerHTML = music

@@ -1,16 +1,15 @@
-
 let songIndex;
 let currfolder;
 let songList = [];
 
 async function getSongs(folder) { 
     currfolder = folder;
-    let a = await fetch(`https://raw.githubusercontent.com/jinni-07/Project-2-Spotify-clone/main/songs/${currfolder}/`);
-    let response = await a.text();
+    let response = await fetch(`https://jinni-07.github.io/Project-2-Spotify-clone/songs/${currfolder}/`);
+    let text = await response.text();
     let div = document.createElement('div');
-    div.innerHTML = response;
+    div.innerHTML = text;
     let as = div.getElementsByTagName('a');
-    songs = [];
+    let songs = [];
     songList = [];
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
@@ -47,10 +46,9 @@ async function getSongs(folder) {
 </style>
 </svg>
     </li>`;
-        d.innerHTML = d.innerHTML + html;
+        d.innerHTML += html;
         songList.push(song);
     }
-    // Attach an event listener to play a song
     Array.from(document.querySelector(".second").getElementsByTagName("li")).forEach((e, index) => {
         e.children[2].addEventListener('click', function () {
             music = e.querySelector('.info').firstElementChild.innerHTML;
@@ -63,9 +61,8 @@ async function getSongs(folder) {
 let currentsong = new Audio();  // Global Scope Variable only one music runs at a time ...
 
 const playmusic = (music) => {
-    // var audio = new Audio(`songs/${folder}`+music+'.mp3');
     song = music.replaceAll(' ', '_');   // this will not show underscore in songname in player section
-    currentsong.src = (`https://raw.githubusercontent.com/jinni-07/Project-2-Spotify-clone/main/songs/${currfolder}/` + song + '.mp3');
+    currentsong.src = (`https://jinni-07.github.io/Project-2-Spotify-clone/songs/${currfolder}/` + song + '.mp3');
     currentsong.play();
     play.src = "image/pause.svg";
     document.querySelector('.songname').innerHTML = music;
@@ -81,10 +78,10 @@ function SecondsToMinutes(seconds) {
 }
 
 async function albums() {
-    let a = await fetch(`https://raw.githubusercontent.com/jinni-07/Project-2-Spotify-clone/main/songs/`);
-    let response = await a.text();
+    let response = await fetch(`https://jinni-07.github.io/Project-2-Spotify-clone/songs/`);
+    let text = await response.text();
     let div = document.createElement('div');
-    div.innerHTML = response;
+    div.innerHTML = text;
     let anchor = div.getElementsByTagName('a');
     let cardContainer = document.querySelector(".cardContainer");
     let array = Array.from(anchor);
@@ -92,15 +89,15 @@ async function albums() {
         const element = array[index];
         if (element.href.includes('/songs')) {
             let folder = element.href.split('/').slice(-2)[0];
-            let a = await fetch(`https://raw.githubusercontent.com/jinni-07/Project-2-Spotify-clone/main/songs/${folder}/info.json`);
-            let songInfo = await a.json();
+            let infoResponse = await fetch(`https://jinni-07.github.io/Project-2-Spotify-clone/songs/${folder}/info.json`);
+            let songInfo = await infoResponse.json();
             cardContainer.innerHTML += `
                 <div data-folder="${folder}" class="card">
                     <svg class="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
                         <rect x="0" y="0" width="32" height="32" fill="#3BE276" rx="16" ry="16"/>
                         <path d="m11.05 7.606 13.49 7.788a.7.7 0 0 1 0 1.212L11.05 24.394A.7.7 0 0 1 10 23.788V8.212a.7.7 0 0 1 1.05-.606z" fill="black"></path>
                     </svg>
-                    <img src="https://raw.githubusercontent.com/jinni-07/Project-2-Spotify-clone/main/songs/${folder}/cover.jpeg" alt="image">
+                    <img src="https://jinni-07.github.io/Project-2-Spotify-clone/songs/${folder}/cover.jpeg" alt="image">
                     <p>${songInfo.title}</p>
                 </div>`;
         }
@@ -155,6 +152,7 @@ async function playlist() {
             unmute.src = 'image/mute.svg';
         }
     });
+
 
     // Attach event listener for appearance of volume range on hover
     document.querySelector('.vol_set').addEventListener('mouseover', () => {

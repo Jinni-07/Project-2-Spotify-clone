@@ -3,7 +3,7 @@ let currfolder;
 let songList = []
 async function getSongs(folder) { 
     currfolder = folder
-    let a = await fetch(`/songs/${currfolder}/`)
+    let a = await fetch(`Project-2-Spotify-clone/songs/${currfolder}/`)
     let response = await a.text()
     let div = document.createElement('div')
     div.innerHTML = response;

@@ -66,7 +66,7 @@ let currentsong = new Audio();  //Global Scope Variable only one music runs at a
 const playmusic = (music) => {
     // var audio = new Audio(`/songs/${folder}`+music+'.mp3');
     song = music.replaceAll(' ', '_')   //this will not show underscore in songname in player section
-    currentsong.src = (`songs/${currfolder}/` + song + '.mp3')
+    currentsong.src = (`/songs/${currfolder}/` + song + '.mp3')
     currentsong.play();
     play.src = "image/pause.svg"
     document.querySelector('.songname').innerHTML = music
@@ -86,7 +86,7 @@ function SecondsToMinutes(seconds) {
 
 
 async function albums() {
-    let a = await fetch(`songs`);
+    let a = await fetch(`/songs`);
     let response = await a.text();
     
     let div = document.createElement('div');
@@ -102,7 +102,7 @@ async function albums() {
         if (element.href.includes('/songs')) {
             let folder = element.href.split('/').slice(-2)[0];
             
-            let a = await fetch(`songs/${folder}/info.json`);
+            let a = await fetch(`/songs/${folder}/info.json`);
             let songInfo = await a.json();
             
 
